@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b10">
+  <meta name="description" content="Lisa Manoban — Life Simulator. A fictional celebrity-career management game inspired by public career themes.">
+  <title>LISA MANOBAN — LIFE SIMULATOR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toastStack" class="toast-stack" aria-live="polite"></div>
+
+  <div id="milestoneModal" class="modal-backdrop hidden">
+    <div class="modal milestone-modal">
+      <button class="modal-close" data-close-modal="milestoneModal" aria-label="Close">×</button>
+      <div class="milestone-icon">★</div>
+      <span class="eyebrow">MILESTONE UNLOCKED</span>
+      <h2 id="milestoneTitle">GLOBAL SUPERSTAR</h2>
+      <p id="milestoneText">Your career has reached a new level. New international opportunities are now available.</p>
+      <button class="primary-btn" data-close-modal="milestoneModal">Continue</button>
+    </div>
+  </div>
+
+  <div id="opportunityModal" class="modal-backdrop hidden">
+    <div class="modal">
+      <button class="modal-close" data-close-modal="opportunityModal" aria-label="Close">×</button>
+      <span class="eyebrow" id="oppEyebrow">NEW OPPORTUNITY</span>
+      <h2 id="oppTitle">A new opportunity has arrived.</h2>
+      <p id="oppText"></p>
+      <div class="choice-row">
+        <button id="oppAccept" class="primary-btn">Accept</button>
+        <button id="oppDecline" class="ghost-btn">Decline</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="eventModal" class="modal-backdrop hidden">
+    <div class="modal event-modal">
+      <button class="modal-close" data-close-modal="eventModal" aria-label="Close">×</button>
+      <span class="eyebrow">LIFE EVENT</span>
+      <h2 id="eventTitle">Something happened.</h2>
+      <p id="eventText"></p>
+      <button class="primary-btn" data-close-modal="eventModal">Got it</button>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">LM</div>
+        <div><strong>LISA</strong><span>LIFE SIMULATOR</span></div>
+      </div>
+      <nav class="side-nav" aria-label="Primary navigation">
+        <button class="nav-btn active" data-section="home"><span>⌂</span>Home</button>
+        <button class="nav-btn" data-section="career"><span>✦</span>Career</button>
+        <button class="nav-btn" data-section="music"><span>♫</span>Music</button>
+        <button class="nav-btn" data-section="social"><span>◎</span>Social</button>
+        <button class="nav-btn" data-section="lifestyle"><span>◌</span>Lifestyle</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="utility-btn" id="saveBtn">⇩ Save Game</button>
+        <button class="utility-btn" id="loadBtn">↥ Load Game</button>
+        <button class="utility-btn danger" id="resetBtn">↻ New Game</button>
+        <div class="fiction-note">FICTIONAL GAME MODE<br><span>Gameplay events and relationships are invented mechanics, not claims about Lisa's private life.</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <div class="mobile-brand">LISA / LIFE SIMULATOR</div>
+          <div class="date-line"><span id="dayCount">DAY 1</span><span id="weekday">THURSDAY</span><span id="dateText">1 JANUARY 2026</span></div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="notificationBtn" title="Notifications">🔔<span id="notificationDot" class="notification-dot hidden"></span></button>
+          <div class="location-pill">⌖ <span id="locationText">Seoul</span></div>
+        </div>
+      </header>
+
+      <section id="home" class="game-section active-section">
+        <div class="hero-grid">
+          <article class="profile-card glass-card">
+            <div class="profile-avatar"><div class="avatar-glow"></div><span>LM</span></div>
+            <div class="profile-copy">
+              <span class="eyebrow">CAREER PROFILE</span>
+              <h1>LISA MANOBAN</h1>
+              <p id="careerStatus">Trainee</p>
+              <div class="profile-meta"><span>Age <b id="ageValue">20</b></span><span>Location <b id="profileLocation">Seoul</b></span></div>
+            </div>
+            <div class="career-level-badge"><span>LEVEL</span><b id="careerLevel">1</b></div>
+          </article>
+
+          <article class="daily-card glass-card">
+            <div class="section-heading"><div><span class="eyebrow">TODAY'S SCHEDULE</span><h2>Focus & Flow</h2></div><button class="text-btn" data-section="lifestyle">Manage →</button></div>
+            <div id="scheduleList" class="schedule-list"></div>
+          </article>
+        </div>
+
+        <div class="stat-grid" id="statGrid"></div>
+
+        <div class="home-columns">
+          <article class="glass-card activity-preview">
+            <div class="section-heading"><div><span class="eyebrow">QUICK ACTIONS</span><h2>What will you do?</h2></div></div>
+            <div class="quick-grid">
+              <button class="quick-btn" data-action="record"><span>♫</span><b>Music</b><small>Record Song</small></button>
+              <button class="quick-btn" data-action="dance"><span>✦</span><b>Dance</b><small>Practice</small></button>
+              <button class="quick-btn" data-action="fashion"><span>◇</span><b>Fashion</b><small>Photoshoot</small></button>
+              <button class="quick-btn" data-action="social"><span>◎</span><b>Social</b><small>Post Update</small></button>
+              <button class="quick-btn" data-action="travel"><span>⌖</span><b>Travel</b><small>Explore</small></button>
+              <button class="quick-btn" data-action="rest"><span>◌</span><b>Rest</b><small>Recover</small></button>
+            </div>
+          </article>
+
+          <article class="glass-card finance-preview">
+            <div class="section-heading"><div><span class="eyebrow">FINANCES</span><h2>Portfolio</h2></div><button class="text-btn" data-section="career">Details →</button></div>
+            <div class="money-big" id="moneyValue">$100,000</div>
+            <div class="money-sub"><span>Virtual career balance</span><span id="netChange">+$0</span></div>
+            <div id="transactionMini" class="transaction-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="career" class="game-section">
+        <div class="page-title"><span class="eyebrow">CAREER MANAGEMENT</span><h2>Build the next chapter.</h2><p>Balance opportunities, energy and reputation. Higher fame unlocks larger fictional opportunities.</p></div>
+        <div class="career-layout">
+          <article class="glass-card career-track"><div class="section-heading"><div><span class="eyebrow">PROGRESSION</span><h3>Career ladder</h3></div><span id="nextLevelText" class="muted"></span></div><div id="careerLadder"></div></article>
+          <article class="glass-card actions-card"><div class="section-heading"><div><span class="eyebrow">OPPORTUNITIES</span><h3>Career Actions</h3></div></div><div id="careerActions" class="action-list"></div></article>
+        </div>
+        <article class="glass-card finance-full"><div class="section-heading"><div><span class="eyebrow">MONEY</span><h3>Transaction history</h3></div><div class="finance-total" id="financeTotal">$100,000</div></div><div id="transactionHistory" class="transaction-history"></div></article>
+      </section>
+
+      <section id="music" class="game-section">
+        <div class="page-title"><span class="eyebrow">MUSIC STUDIO</span><h2>Create. Release. Perform.</h2><p>All songs, numbers, charts and reviews in this simulator are fictional.</p></div>
+        <div class="music-layout">
+          <article class="glass-card studio-card">
+            <div class="section-heading"><div><span class="eyebrow">STUDIO</span><h3>Create a release</h3></div></div>
+            <label class="field-label">Song title<input id="songTitle" maxlength="32" value="Midnight Drive" placeholder="Enter a fictional song title"></label>
+            <label class="field-label">Genre<select id="songGenre"><option>Pop</option><option>K-Pop</option><option>Hip-Hop</option><option>R&amp;B</option><option>Dance</option><option>Electronic</option></select></label>
+            <div class="studio-buttons"><button class="primary-btn" data-music-action="create">Create Song</button><button class="ghost-btn" data-music-action="record">Record Song</button><button class="ghost-btn" data-music-action="release">Release Song</button></div>
+            <div id="currentSong" class="current-song"></div>
+          </article>
+          <article class="glass-card releases-card"><div class="section-heading"><div><span class="eyebrow">DISCOGRAPHY</span><h3>Fictional releases</h3></div></div><div id="releaseList"></div></article>
+        </div>
+      </section>
+
+      <section id="social" class="game-section">
+        <div class="page-title"><span class="eyebrow">SOCIAL STUDIO</span><h2>Own the conversation.</h2><p>Grow an audience while protecting happiness and energy.</p></div>
+        <div class="social-grid">
+          <article class="glass-card audience-card"><div class="audience-number" id="followersValue">500,000</div><span>Followers</span><div class="engagement-row"><div><b id="likesValue">0</b><small>Likes today</small></div><div><b id="engagementValue">0%</b><small>Engagement</small></div><div><b id="socialRepValue">70</b><small>Reputation</small></div></div></article>
+          <article class="glass-card social-actions"><div class="section-heading"><div><span class="eyebrow">CONTENT</span><h3>Post something</h3></div></div><div class="action-list" id="socialActions"></div></article>
+        </div>
+      </section>
+
+      <section id="lifestyle" class="game-section">
+        <div class="page-title"><span class="eyebrow">LIFESTYLE CONTROL</span><h2>Protect the person behind the career.</h2><p>Manage energy, stress, happiness, travel and fictional social connections.</p></div>
+        <div class="life-grid">
+          <article class="glass-card activity-card"><div class="section-heading"><div><span class="eyebrow">ACTIVITIES</span><h3>Daily actions</h3></div></div><div id="activityList" class="activity-list"></div><div class="time-controls"><span class="eyebrow">ADVANCE TIME</span><div><button class="ghost-btn" data-advance="1">+1 Day</button><button class="ghost-btn" data-advance="7">+1 Week</button><button class="ghost-btn" data-advance="30">+1 Month</button></div></div></article>
+          <article class="glass-card travel-card"><div class="section-heading"><div><span class="eyebrow">WORLD MAP</span><h3>Travel & opportunities</h3></div></div><div id="travelGrid" class="travel-grid"></div></article>
+          <article class="glass-card people-card"><div class="section-heading"><div><span class="eyebrow">SOCIAL CIRCLE</span><h3>Fictional NPCs</h3></div></div><div id="peopleList"></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Mobile navigation">
+    <button class="active" data-section="home"><span>⌂</span>HOME</button><button data-section="career"><span>✦</span>CAREER</button><button data-section="music"><span>♫</span>MUSIC</button><button data-section="social"><span>◎</span>SOCIAL</button><button data-section="lifestyle"><span>◌</span>LIFE</button>
+  </nav>
+  <script src="script.js"></script>
+</body>
+</html>
